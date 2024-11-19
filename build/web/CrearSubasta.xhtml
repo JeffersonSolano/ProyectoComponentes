@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Crear Subasta</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f9f9; /* Fondo minimalista */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333; /* Texto más suave */
+        }
+
+        .container {
+            background-color: #ffffff; /* Fondo blanco elegante */
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1); /* Sombra elegante */
+            width: 100%;
+            max-width: 500px;
+            text-align: center; /* Centramos el texto */
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 500;
+            color: #222; /* Tono más oscuro para títulos */
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left; /* Etiquetas alineadas a la izquierda */
+        }
+
+        label {
+            font-weight: 500;
+            font-size: 14px;
+            color: #555;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #333;
+            background-color: #fefefe;
+            box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #007bff; /* Color azul suave al enfocar */
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between; /* Botones separados */
+            margin-top: 25px;
+            gap: 15px; /* Espacio entre los botones */
+        }
+
+        /* Estilos para el botón "Crear Subasta" */
+        .btn-create, .btn-cancel {
+            width: 12em;  /* Ajustado para que sea más largo */
+            height: 3em;
+            border-radius: 30em;  /* Más redondeado */
+            font-size: 16px;  /* Font-size un poco mayor */
+            font-family: inherit;
+            border: none !important;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 6px 6px 12px #c5c5c5,
+                        -6px -6px 12px #ffffff;
+            color: white !important;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        /* Botón "Crear Subasta" */
+        .btn-create {
+            background-color: #d3d3d3 !important; /* Gris claro por defecto */
+        }
+
+        /* Botón "Cancelar" */
+        .btn-cancel {
+            background-color: #d3d3d3 !important; /* Gris claro por defecto */
+        }
+
+        /* Animación para el botón "Crear Subasta" */
+        .btn-create::before, .btn-cancel::before {
+            content: '';
+            width: 0;
+            height: 3em;
+            border-radius: 30em;  /* Aseguramos que la animación tenga esquinas redondeadas */
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: .5s ease;
+            display: block;
+            z-index: -1;
+        }
+
+        .btn-create::before {
+            background-image: linear-gradient(to right, #0fd850 0%, #f9f047 100%);
+        }
+
+        .btn-cancel::before {
+            background-image: linear-gradient(to right, #ff0000 0%, #ff5c5c 100%);  /* Rojo degradado invertido */
+        }
+
+        .btn-create:hover::before, .btn-cancel:hover::before {
+            width: 12em; /* Ajustamos a las dimensiones del botón */
+        }
+
+        .btn-create:hover {
+            background-color: #218838 !important;
+            transform: scale(1.05); /* Efecto hover elegante */
+        }
+
+        .btn-cancel:hover {
+            background-color: #c82333 !important;
+            transform: scale(1.05); /* Efecto hover elegante */
+        }
+
+        /* Asegurarse que no haya estilos heredados de PrimeFaces */
+        p\:commandButton {
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+    </style>
+</h:head>
+<h:body>
+    <h:form>
+        <div class="container">
+            <h1>Crear Nueva Subasta</h1>
+
+            <div class="form-group">
+                <label for="titulo">Título de la Subasta:</label>
+                <h:inputText id="titulo" value="#{subastaController.titulo}" required="true" maxlength="100" />
+            </div>
+
+            <div class="form-group">
+                <label for="descripcion">Descripción:</label>
+                <p:inputTextarea id="descripcion" value="#{subastaController.descripcion}" required="true" rows="4" maxlength="500" />
+                <small>Máximo 500 caracteres.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="precioInicial">Precio Inicial:</label>
+                <h:inputText id="precioInicial" value="#{subastaController.precioInicial}" required="true" />
+            </div>
+
+            <div class="form-group">
+                <label for="fechaCierre">Fecha de Cierre:</label>
+                <p:calendar id="fechaCierre" value="#{subastaController.fechaCierre}" required="true" pattern="dd/MM/yyyy" />
+            </div>
+
+            <div class="button-container">
+                <!-- Botón Crear Subasta -->
+                <p:commandButton value="Crear Subasta" action="#{subastaController.crearSubasta}" icon="pi pi-check"
+                                 styleClass="btn-create" />
+
+                <!-- Botón Cancelar -->
+                <p:commandButton value="Cancelar" action="paginaPrincipal.xhtml" icon="pi pi-times" immediate="true"
+                                 styleClass="btn-cancel" />
+            </div>
+        </div>
+    </h:form>
+</h:body>
+</html>
